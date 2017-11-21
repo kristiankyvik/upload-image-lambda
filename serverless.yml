@@ -2,8 +2,7 @@ service: typeform-webhook-listener
 
 plugins:
   - serverless-offline
-  - serverless-webpack
-
+  
 # Enable auto-packing of external modules
 custom:
   webpackIncludeModules: true
