@@ -22,6 +22,9 @@ Nightmare.action('extractUrl', function(selector, done) {
 console.log("loaded logsss");
 
 module.exports.nightmareWebhookListener = async (event, context, callback) => {
+  
+  console.log(event.body);
+  
   const {name, query} = JSON.parse(event.body);
 
   const picUrl = await nightmare.goto(`https://source.unsplash.com/254x156/?${query}`)
