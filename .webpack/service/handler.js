@@ -105,6 +105,8 @@ Nightmare.action('extractUrl', function (selector, done) {
   }, done, selector);
 });
 
+console.log("loaded logsss");
+
 module.exports.nightmareWebhookListener = function () {
   var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(event, context, callback) {
     var _JSON$parse, name, query, picUrl, picture, picture_data, AwsParams, upload, response;

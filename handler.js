@@ -19,6 +19,8 @@ Nightmare.action('extractUrl', function(selector, done) {
   }, done, selector)
 });
 
+console.log("loaded logsss");
+
 module.exports.nightmareWebhookListener = async (event, context, callback) => {
   const {name, query} = JSON.parse(event.body);
 
