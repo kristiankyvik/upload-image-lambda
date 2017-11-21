@@ -120,7 +120,7 @@ module.exports.nightmareWebhookListener = function () {
 
             _JSON$parse = JSON.parse(event.body), name = _JSON$parse.name, query = _JSON$parse.query;
             _context.next = 4;
-            return nightmare.goto('https://source.unsplash.com/254x156/?' + query).wait(1000).extractUrl('img');
+            return nightmare.goto('https://source.unsplash.com/254x156/?' + query).wait(500).extractUrl('img');
 
           case 4:
             picUrl = _context.sent;
