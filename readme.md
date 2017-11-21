@@ -1,0 +1,1 @@
+To expose endpoint during development run: ngrok http 5000

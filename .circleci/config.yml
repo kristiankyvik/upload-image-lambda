@@ -1,0 +1,25 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+version: 2
+general:
+  branches:
+    only:
+      - master # list of branches to build
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:latest
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Install globals
+      - run: sudo npm i -g serverless --unsafe-perm
+
+      - run: yarn install
+        
+      - run: serverless deploy

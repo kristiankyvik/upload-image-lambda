@@ -1,0 +1,26 @@
+service: typeform-webhook-listener
+
+plugins:
+  - serverless-offline
+  - serverless-webpack
+
+# Enable auto-packing of external modules
+custom:
+  webpackIncludeModules: true
+
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  timeout: 100
+  environment:
+    MLAB_API_KEY: ${env:MLAB_API_KEY}
+
+functions:
+  nightmareWebhookListener:
+    handler: handler.nightmareWebhookListener
+    events:
+      - http:
+          path: webhook
+          method: post
+          cors: true
