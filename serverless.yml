@@ -18,6 +18,7 @@ functions:
   nightmareWebhookListener:
     handler: handler.nightmareWebhookListener
     events:
+      - cloudwatchLog: '/aws/lambda/nighmare-webhook-listener-dev-nightmareWebhookListener'
       - http:
           path: upload
           method: post
