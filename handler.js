@@ -28,12 +28,9 @@ module.exports.nightmareWebhookListener = async (event, context, callback) => {
   const {name, query} = JSON.parse(event.body);
 
   const picUrl = await nightmare.goto(`https://source.unsplash.com/254x156/?${query}`)
-      .wait(500)
-      .extractUrl('img');
-
-
-  await nightmare.end();
-
+      .wait(1000)
+      .extractUrl('img')
+      .end();
 
   console.log("pic URL", picUrl);
 

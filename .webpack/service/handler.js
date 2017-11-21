@@ -120,26 +120,23 @@ module.exports.nightmareWebhookListener = function () {
 
             _JSON$parse = JSON.parse(event.body), name = _JSON$parse.name, query = _JSON$parse.query;
             _context.next = 4;
-            return nightmare.goto('https://source.unsplash.com/254x156/?' + query).wait(500).extractUrl('img');
+            return nightmare.goto('https://source.unsplash.com/254x156/?' + query).wait(1000).extractUrl('img').end();
 
           case 4:
             picUrl = _context.sent;
-            _context.next = 7;
-            return nightmare.end();
 
-          case 7:
 
             console.log("pic URL", picUrl);
 
-            _context.next = 10;
+            _context.next = 8;
             return fetch(picUrl, { encoding: null });
 
-          case 10:
+          case 8:
             picture = _context.sent;
-            _context.next = 13;
+            _context.next = 11;
             return picture.buffer();
 
-          case 13:
+          case 11:
             picture_data = _context.sent;
 
 
@@ -153,10 +150,10 @@ module.exports.nightmareWebhookListener = function () {
               'ContentType': 'image/jpeg',
               'ACL': 'public-read'
             };
-            _context.next = 18;
+            _context.next = 16;
             return s3.putObject(AwsParams).promise();
 
-          case 18:
+          case 16:
             upload = _context.sent;
             response = {
               statusCode: 200,
@@ -168,7 +165,7 @@ module.exports.nightmareWebhookListener = function () {
 
             callback(null, response);
 
-          case 21:
+          case 19:
           case 'end':
             return _context.stop();
         }
