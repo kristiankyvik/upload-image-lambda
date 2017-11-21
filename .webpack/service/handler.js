@@ -70,13 +70,13 @@
 "use strict";
 
 
-var _regenerator = __webpack_require__(1);
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
 var _stringify = __webpack_require__(2);
 
 var _stringify2 = _interopRequireDefault(_stringify);
+
+var _regenerator = __webpack_require__(1);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
 
 var _asyncToGenerator2 = __webpack_require__(3);
 
@@ -108,53 +108,75 @@ Nightmare.action('extractUrl', function (selector, done) {
 console.log("loaded logsss");
 
 module.exports.nightmareWebhookListener = function () {
-  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(event, context, callback) {
-    var _JSON$parse, name, query, picUrl, picture, picture_data, AwsParams, upload, response;
+  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(event, context, callback) {
+    var _JSON$parse, name, query, night, response;
 
-    return _regenerator2.default.wrap(function _callee$(_context) {
+    return _regenerator2.default.wrap(function _callee2$(_context2) {
       while (1) {
-        switch (_context.prev = _context.next) {
+        switch (_context2.prev = _context2.next) {
           case 0:
 
             console.log(event.body);
 
             _JSON$parse = JSON.parse(event.body), name = _JSON$parse.name, query = _JSON$parse.query;
-            _context.next = 4;
-            return nightmare.goto('https://source.unsplash.com/254x156/?' + query).wait(1000).extractUrl('img').end();
+            _context2.next = 4;
+            return nightmare.goto('https://source.unsplash.com/254x156/?' + query).wait(1000).extractUrl('img').then(function () {
+              var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(result) {
+                var picture, picture_data, AwsParams, upload;
+                return _regenerator2.default.wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+
+                        console.log("pic URL", result);
+
+                        _context.next = 3;
+                        return fetch(result, { encoding: null });
+
+                      case 3:
+                        picture = _context.sent;
+                        _context.next = 6;
+                        return picture.buffer();
+
+                      case 6:
+                        picture_data = _context.sent;
+
+
+                        console.log("picutreeeee", picture_data);
+
+                        AwsParams = {
+                          'Bucket': 'erasmoose',
+                          'Key': name + '.jpg',
+                          'Body': picture_data,
+                          'ContentEncoding': 'base64',
+                          'ContentType': 'image/jpeg',
+                          'ACL': 'public-read'
+                        };
+                        _context.next = 11;
+                        return s3.putObject(AwsParams).promise();
+
+                      case 11:
+                        upload = _context.sent;
+                        return _context.abrupt('return', upload);
+
+                      case 13:
+                      case 'end':
+                        return _context.stop();
+                    }
+                  }
+                }, _callee, undefined);
+              }));
+
+              return function (_x4) {
+                return _ref2.apply(this, arguments);
+              };
+            }()).catch(function (error) {
+              console.error('Search failed:', error);
+              done(error); // done() instead of context.done()
+            });
 
           case 4:
-            picUrl = _context.sent;
-
-
-            console.log("pic URL", picUrl);
-
-            _context.next = 8;
-            return fetch(picUrl, { encoding: null });
-
-          case 8:
-            picture = _context.sent;
-            _context.next = 11;
-            return picture.buffer();
-
-          case 11:
-            picture_data = _context.sent;
-
-
-            console.log("picutreeeee", picture_data);
-
-            AwsParams = {
-              'Bucket': 'erasmoose',
-              'Key': name + '.jpg',
-              'Body': picture_data,
-              'ContentEncoding': 'base64',
-              'ContentType': 'image/jpeg',
-              'ACL': 'public-read'
-            };
-            _context.next = 16;
-            return s3.putObject(AwsParams).promise();
-
-          case 16:
-            upload = _context.sent;
+            night = _context2.sent;
             response = {
               statusCode: 200,
               body: (0, _stringify2.default)({
@@ -163,14 +185,16 @@ module.exports.nightmareWebhookListener = function () {
             };
 
 
+            console.log("kjljkljlkjklj REpSONE", response);
+
             callback(null, response);
 
-          case 19:
+          case 8:
           case 'end':
-            return _context.stop();
+            return _context2.stop();
         }
       }
-    }, _callee, undefined);
+    }, _callee2, undefined);
   }));
 
   return function (_x, _x2, _x3) {
