@@ -1,4 +1,4 @@
-service: typeform-webhook-listener
+service: nighmare-webhook-listener
 
 plugins:
   - serverless-offline
