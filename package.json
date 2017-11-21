@@ -4,7 +4,8 @@
   "description": "Nightmare webhook listener",
   "main": "handler.js",
   "scripts": {
-    "deploy": "serverless deploy"
+    "deploy": "serverless deploy",
+    "dev": "serverless offline start --port 5001"
   },
   "author": "Kristian Kyvik",
   "license": "MIT",

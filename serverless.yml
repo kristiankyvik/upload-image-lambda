@@ -2,7 +2,8 @@ service: typeform-webhook-listener
 
 plugins:
   - serverless-offline
-  
+  - serverless-webpack
+
 # Enable auto-packing of external modules
 custom:
   webpackIncludeModules: true
@@ -20,6 +21,6 @@ functions:
     handler: handler.nightmareWebhookListener
     events:
       - http:
-          path: webhook
+          path: upload
           method: post
           cors: true
