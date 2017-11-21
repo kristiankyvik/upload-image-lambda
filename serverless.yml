@@ -13,8 +13,6 @@ provider:
   name: aws
   runtime: nodejs6.10
   timeout: 100
-  environment:
-    MLAB_API_KEY: ${env:MLAB_API_KEY}
 
 functions:
   nightmareWebhookListener:

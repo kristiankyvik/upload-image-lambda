@@ -5,6 +5,7 @@
   "main": "handler.js",
   "scripts": {
     "deploy": "serverless deploy",
+    "logs": "serverless logs -f nightmareWebhookListener -t",
     "dev": "serverless offline start --port 5001"
   },
   "author": "Kristian Kyvik",
