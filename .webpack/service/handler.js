@@ -124,19 +124,22 @@ module.exports.nightmareWebhookListener = function () {
 
           case 4:
             picUrl = _context.sent;
+            _context.next = 7;
+            return nightmare.end();
 
+          case 7:
 
             console.log("pic URL", picUrl);
 
-            _context.next = 8;
+            _context.next = 10;
             return fetch(picUrl, { encoding: null });
 
-          case 8:
+          case 10:
             picture = _context.sent;
-            _context.next = 11;
+            _context.next = 13;
             return picture.buffer();
 
-          case 11:
+          case 13:
             picture_data = _context.sent;
 
 
@@ -150,10 +153,10 @@ module.exports.nightmareWebhookListener = function () {
               'ContentType': 'image/jpeg',
               'ACL': 'public-read'
             };
-            _context.next = 16;
+            _context.next = 18;
             return s3.putObject(AwsParams).promise();
 
-          case 16:
+          case 18:
             upload = _context.sent;
             response = {
               statusCode: 200,
@@ -165,7 +168,7 @@ module.exports.nightmareWebhookListener = function () {
 
             callback(null, response);
 
-          case 19:
+          case 21:
           case 'end':
             return _context.stop();
         }

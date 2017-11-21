@@ -31,6 +31,10 @@ module.exports.nightmareWebhookListener = async (event, context, callback) => {
       .wait(500)
       .extractUrl('img');
 
+
+  await nightmare.end();
+
+
   console.log("pic URL", picUrl);
 
   const picture = await fetch(picUrl, {encoding: null});
